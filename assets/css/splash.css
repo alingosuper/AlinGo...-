@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--dark-bg), var(--indigo));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+.splash-container {
+  text-align: center;
+  color: var(--text-light);
+}
+
+.logo-border {
+  padding: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--dark-bg), var(--dark-bg)) padding-box,
+    linear-gradient(135deg, var(--indigo), var(--green)) border-box;
+}
+
+.logo-border img {
+  width: 120px;
+}
+
+.tagline {
+  margin-top: 15px;
+  color: var(--green-light);
+  letter-spacing: 1px;
+}
