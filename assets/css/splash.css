@@ -1,20 +1,25 @@
+/* Full screen splash body */
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(135deg, var(--dark-bg), var(--indigo));
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: Arial, sans-serif;
 }
 
-.splash-container {
+/* Main splash container */
+.splash {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  background: linear-gradient(150deg, var(--dark-bg), var(--indigo));
   color: var(--text-light);
 }
 
-.logo-border {
-  padding: 20px;
+/* Logo with thin gradient border */
+.logo-wrapper {
+  padding: 22px;
   border-radius: 50%;
   border: 2px solid transparent;
   background:
@@ -22,12 +27,22 @@ body {
     linear-gradient(135deg, var(--indigo), var(--green)) border-box;
 }
 
-.logo-border img {
+/* Logo image */
+.logo-wrapper img {
   width: 120px;
+  display: block;
 }
 
-.tagline {
-  margin-top: 15px;
+/* App title */
+.splash h1 {
+  margin: 20px 0 6px;
+  letter-spacing: 2px;
+}
+
+/* Tagline */
+.splash p {
+  margin-top: 8px;
   color: var(--green-light);
+  font-size: 14px;
   letter-spacing: 1px;
 }
