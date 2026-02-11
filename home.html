@@ -1,38 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AlinGo Home</title>
-  <link rel="stylesheet" href="assets/css/theme.css">
-  <link rel="stylesheet" href="assets/css/home.css">
+<meta charset="UTF-8">
+<title>AlinGo Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/home.css">
 </head>
 <body>
 
-<header class="top-bar">
-  <h1>AlinGo</h1>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2>Menu</h2>
+    <span onclick="toggleSidebar()">✖</span>
+  </div>
+
+  <ul class="menu-links">
+    <li>🏠 Home</li>
+    <li>🚕 Ride</li>
+    <li>🍔 Food</li>
+    <li>📦 Courier</li>
+    <li>🎟 Tickets</li>
+    <li>⚙ Settings</li>
+  </ul>
+
+  <hr>
+
+  <h3>Select Language</h3>
+
+  <select id="languageSelect">
+    <option>English</option>
+    <option>中文 (Chinese)</option>
+    <option>हिन्दी (Hindi)</option>
+    <option>Español (Spanish)</option>
+    <option>Français (French)</option>
+    <option>العربية (Arabic)</option>
+    <option>Português</option>
+    <option>Русский (Russian)</option>
+    <option>اردو (Urdu)</option>
+    <option>বাংলা (Bengali)</option>
+    <option>日本語 (Japanese)</option>
+    <option>Deutsch (German)</option>
+    <option>한국어 (Korean)</option>
+    <option>Italiano</option>
+    <option>Türkçe</option>
+    <option>فارسی (Persian)</option>
+    <option>Polski</option>
+    <option>Nederlands</option>
+    <option>ไทย (Thai)</option>
+    <option>Tiếng Việt</option>
+    <option>Malay</option>
+    <option>Filipino</option>
+    <option>Ukrainian</option>
+    <option>Romanian</option>
+    <option>Greek</option>
+    <option>Czech</option>
+    <option>Swedish</option>
+    <option>Hungarian</option>
+    <option>Danish</option>
+    <option>Finnish</option>
+  </select>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<header class="header">
+  <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+  <span class="logo">AlinGo</span>
+  <span>📍</span>
 </header>
 
-<section class="services-grid">
-
-  <div class="service">🚕<span>Ride</span></div>
-  <div class="service">🍔<span>Food</span></div>
-  <div class="service">📦<span>Courier</span></div>
-  <div class="service">🌦<span>Weather</span></div>
-  <div class="service">🏏<span>Sports</span></div>
-  <div class="service">✈<span>Travel</span></div>
-  <div class="service">🎟<span>Tickets</span></div>
-  <div class="service">🛡<span>Security</span></div>
-
+<section class="map-section">
+  <div id="map"></div>
 </section>
 
+<main class="content">
+  <section class="services">
+    <div class="service">🚕<span>Ride</span></div>
+    <div class="service">🍔<span>Food</span></div>
+    <div class="service">📦<span>Courier</span></div>
+    <div class="service">🌦<span>Weather</span></div>
+    <div class="service">🏏<span>Sports</span></div>
+    <div class="service">✈<span>Travel</span></div>
+    <div class="service">🎟<span>Tickets</span></div>
+    <div class="service">🛡<span>Security</span></div>
+  </section>
+</main>
+
 <nav class="bottom-nav">
-  <span>🏠</span>
-  <span>🔍</span>
-  <span>📍</span>
-  <span>🔔</span>
-  <span>👤</span>
+  <div class="active">🏠</div>
+  <div>🔍</div>
+  <div>📍</div>
+  <div>🔔</div>
+  <div>👤</div>
 </nav>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/home.js"></script>
+
 </body>
 </html>
