@@ -44,6 +44,13 @@ body {
   border-radius: 12px;
   text-align: center;
   font-size: 22px;
+  cursor: pointer; /* New: clickable for Ride */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 .service span {
@@ -97,4 +104,61 @@ body {
 
 .overlay.active {
   display: block;
+}
+
+/* ===== Ride Panel Styling ===== */
+.ride-panel {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  background: #111827;
+  padding: 16px;
+  border-radius: 12px;
+  z-index: 1100;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  color: white;
+}
+
+.ride-panel.hidden {
+  display: none;
+}
+
+.ride-panel h3 {
+  margin-top: 0;
+}
+
+.ride-panel p {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.ride-panel button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+#request-ride-btn {
+  background: #22c55e;
+  color: black;
+}
+
+#request-ride-btn:hover {
+  background: #16a34a;
+}
+
+#close-ride-panel {
+  background: #4f46e5;
+  color: white;
+}
+
+#close-ride-panel:hover {
+  background: #3730a3;
 }
