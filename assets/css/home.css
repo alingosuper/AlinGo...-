@@ -21,12 +21,12 @@ body {
 
 /* Map */
 .map-section {
-  height: 250px;
+  height: 280px;
 }
 
 #map {
-  width: 100%;
   height: 100%;
+  width: 100%;
 }
 
 /* Services */
@@ -73,7 +73,7 @@ body {
   height: 100%;
   background: #111827;
   padding: 20px;
-  transition: 0.3s;
+  transition: left 0.3s ease;
   z-index: 1000;
 }
 
