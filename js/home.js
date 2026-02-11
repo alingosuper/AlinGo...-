@@ -1,31 +1,12 @@
-// Initialize Map
-const map = L.map('map').setView([30.3753, 69.3451], 6); // Pakistan default
+// Leaflet Map
+const map = L.map('map').setView([30.3753, 69.3451], 6);
 
-// OpenStreetMap Layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; OpenStreetMap contributors'
+  attribution: '&copy; OpenStreetMap'
 }).addTo(map);
 
-// Get User Live Location
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(position => {
-
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-
-    map.setView([lat, lon], 14);
-
-    L.marker([lat, lon])
-      .addTo(map)
-      .bindPopup("You are here 📍")
-      .openPopup();
-
-  });
+// Sidebar Toggle
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
 }
-
-// Service Click Animation
-document.querySelectorAll(".service").forEach(item => {
-  item.addEventListener("click", () => {
-    alert(item.innerText + " Module Coming Soon");
-  });
-});
