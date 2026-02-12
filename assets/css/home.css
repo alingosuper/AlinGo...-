@@ -1,3 +1,7 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -5,12 +9,10 @@ body {
   color: white;
 }
 
-.header-logo-img {
-  height: 40px;
-  object-fit: contain;
-}
+/* =========================
+   SPLASH SCREEN
+========================= */
 
-/* Splash Screen */
 .splash {
   position: fixed;
   inset: 0;
@@ -48,11 +50,14 @@ body {
 
 .splash p {
   margin-top: 5px;
-  color: #a7f3d0; /* fresh green accent */
+  color: #a7f3d0;
   font-size: 14px;
 }
 
-/* Header */
+/* =========================
+   HEADER
+========================= */
+
 .header {
   padding: 15px;
   background: linear-gradient(90deg, #4f46e5, #22c55e);
@@ -61,12 +66,20 @@ body {
   align-items: center;
 }
 
+.header-logo-img {
+  height: 40px;
+  object-fit: contain;
+}
+
 .menu-btn {
   font-size: 22px;
   cursor: pointer;
 }
 
-/* Map */
+/* =========================
+   MAP SECTION
+========================= */
+
 .map-section {
   height: 280px;
 }
@@ -76,7 +89,10 @@ body {
   width: 100%;
 }
 
-/* Services */
+/* =========================
+   SERVICES GRID
+========================= */
+
 .services {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -91,7 +107,7 @@ body {
   border-radius: 12px;
   text-align: center;
   font-size: 22px;
-  cursor: pointer; /* New: clickable for Ride */
+  cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -107,53 +123,10 @@ body {
   color: #9ca3af;
 }
 
-/* Bottom Nav */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #020617;
-  display: flex;
-  justify-content: space-around;
-  padding: 12px 0;
-}
+/* =========================
+   RIDE PANEL
+========================= */
 
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -260px;
-  width: 260px;
-  height: 100%;
-  background: #111827;
-  padding: 20px;
-  transition: left 0.3s ease;
-  z-index: 1000;
-}
-
-.sidebar.active {
-  left: 0;
-}
-
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: none;
-  z-index: 900;
-}
-
-.overlay.active {
-  display: block;
-}
-
-/* ===== Ride Panel Styling ===== */
 .ride-panel {
   position: fixed;
   bottom: 100px;
@@ -208,4 +181,60 @@ body {
 
 #close-ride-panel:hover {
   background: #3730a3;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: #111827;
+  padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 900;
+}
+
+.overlay.active {
+  display: block;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #020617;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
 }
