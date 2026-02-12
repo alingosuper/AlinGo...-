@@ -4,6 +4,15 @@ from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", function () {
 
+// Hide splash after 2 seconds
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splash");
+  setTimeout(() => {
+    splash.style.opacity = "0";
+    setTimeout(() => splash.style.display = "none", 500);
+  }, 2000); // 2 sec splash
+});
+  
   // ===== Map Initialize =====
   const map = L.map('map').setView([30.3753, 69.3451], 13);
 
