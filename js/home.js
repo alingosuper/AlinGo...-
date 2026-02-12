@@ -1,43 +1,27 @@
-import { auth, db } from "./firebase-config.js";
-import { doc, getDoc, updateDoc }
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-
-// ===== Splash Hide (LOAD event separate رکھیں) =====
-window.addEventListener("load", () => {
-  const splash = document.getElementById("splash");
-  if (splash) {
-    setTimeout(() => {
-      splash.style.opacity = "0";
-      setTimeout(() => splash.style.display = "none", 500);
-    }, 2000);
-  }
-});
-
-
-// ===== Main DOM Ready =====
 document.addEventListener("DOMContentLoaded", function () {
 
-  // ===== Map Initialize =====
+  // Map initialize (never blank)
   const map = L.map('map').setView([30.3753, 69.3451], 13);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
-  let userLat = 30.3753, userLng = 69.3451;
-  let driverMarkers = [];
-
+  // Safe driver loader
   function addDrivers(lat, lng) {
 
-    L.marker([lat, lng]).addTo(map).bindPopup("You are here 📍");
+    // User marker
+    L.marker([lat, lng])
+      .addTo(map)
+      .bindPopup("You are here 📍");
 
+    // Nearby drivers
     for (let i = 1; i <= 5; i++) {
 
       const randomLat = lat + (Math.random() - 0.5) / 400;
       const randomLng = lng + (Math.random() - 0.5) / 400;
 
-      const marker = L.circleMarker([randomLat, randomLng], {
+      L.circleMarker([randomLat, randomLng], {
         radius: 8,
         color: "#22c55e",
         fillColor: "#22c55e",
@@ -45,114 +29,29 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .addTo(map)
       .bindPopup("🚕 Driver " + i + "<br>⭐ 4." + i);
-
-      driverMarkers.push(marker);
     }
   }
 
-  // ===== Geolocation =====
+  // Try geolocation (safe fallback)
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function(position) {
-        userLat = position.coords.latitude;
-        userLng = position.coords.longitude;
-        map.setView([userLat, userLng], 14);
-        addDrivers(userLat, userLng);
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        map.setView([lat, lng], 14);
+        addDrivers(lat, lng);
       },
       function() {
-        addDrivers(userLat, userLng);
+        addDrivers(30.3753, 69.3451);
       }
     );
   } else {
-    addDrivers(userLat, userLng);
-  }
-
-  // ===== Ride Panel Elements =====
-  const ridePanel = document.getElementById("ride-panel");
-  const rideInfo = document.getElementById("ride-info");
-  const requestBtn = document.getElementById("request-ride-btn");
-  const closeBtn = document.getElementById("close-ride-panel");
-
-  // ===== Open Ride Panel =====
-  document.querySelectorAll(".service").forEach(item => {
-    item.addEventListener("click", () => {
-      if (item.innerText.includes("Ride")) {
-        ridePanel.classList.remove("hidden");
-        rideInfo.textContent = "Select a nearby driver and request your ride.";
-      }
-    });
-  });
-
-  // ===== Close Ride Panel =====
-  if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      ridePanel.classList.add("hidden");
-    });
-  }
-
-  // ===== Ride Request With Wallet Check =====
-  if (requestBtn) {
-    requestBtn.addEventListener("click", async () => {
-
-      const user = auth.currentUser;
-
-      if (!user) {
-        alert("Please login first.");
-        window.location.href = "login.html";
-        return;
-      }
-
-      const userRef = doc(db, "users", user.uid);
-      const snap = await getDoc(userRef);
-
-      if (!snap.exists()) {
-        rideInfo.textContent = "User data not found.";
-        return;
-      }
-
-      let currentWallet = snap.data().wallet;
-
-      if (currentWallet < 200) {
-        rideInfo.textContent = "Insufficient wallet balance!";
-        return;
-      }
-
-      if (driverMarkers.length === 0) {
-        rideInfo.textContent = "No drivers nearby!";
-        return;
-      }
-
-      const driver = driverMarkers[Math.floor(Math.random() * driverMarkers.length)];
-
-      driver.bindPopup("🚕 Driver Assigned! ETA 5 min").openPopup();
-      rideInfo.textContent = "Ride requested! Driver on the way 🚖";
-
-      // Simulate arrival
-      setTimeout(() => {
-        rideInfo.textContent = "Driver has arrived.";
-      }, 8000);
-
-      // ===== Ride Complete & Deduct Wallet =====
-      setTimeout(async () => {
-
-        const freshSnap = await getDoc(userRef);
-        let updatedWallet = freshSnap.data().wallet;
-
-        await updateDoc(userRef, {
-          wallet: updatedWallet - 200
-        });
-
-        rideInfo.textContent = "Ride Completed. ₨200 deducted";
-
-      }, 15000);
-
-    });
+    addDrivers(30.3753, 69.3451);
   }
 
 });
 
-
-// ===== Sidebar toggle (unchanged) =====
+// Sidebar toggle (independent, never breaks map)
 function toggleSidebar() {
   document.getElementById("sidebar").classList.toggle("active");
   document.getElementById("overlay").classList.toggle("active");
