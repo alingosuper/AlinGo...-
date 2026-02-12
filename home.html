@@ -1,90 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AlinGo Home</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlinGo Home</title>
 
-<!-- Leaflet CSS -->
-<link rel="stylesheet"
- href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-<link rel="stylesheet" href="assets/css/theme.css">
-<link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <link rel="stylesheet" href="assets/css/home.css">
 </head>
+
 <body>
 
- <!-- Splash Screen -->
-<div id="splash" class="splash">
-  <div class="logo-wrapper">
-    <img src="/log.PNG" alt="AlinGo Logo">
+  <!-- Splash Screen (Always First Inside Body) -->
+  <div id="splash" class="splash">
+    <div class="logo-wrapper">
+      <!-- 🔥 PATH FIXED -->
+      <img src="public/log.PNG" alt="AlinGo Logo">
+    </div>
+    <h1>AlinGo</h1>
+    <p>All-in-One Super App</p>
   </div>
-  <h1>AlinGo</h1>
-  <p>All-in-One Super App</p>
-</div>
- 
-<!-- Sidebar -->
-<div id="sidebar" class="sidebar">
-  <div class="sidebar-header">
-    <h3>Menu</h3>
-    <span onclick="toggleSidebar()">✖</span>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h3>Menu</h3>
+      <span onclick="toggleSidebar()">✖</span>
+    </div>
+    <ul>
+      <li>🏠 Home</li>
+      <li>🚕 Ride</li>
+      <li>🍔 Food</li>
+      <li>📦 Courier</li>
+    </ul>
   </div>
-  <ul>
-    <li>🏠 Home</li>
-    <li>🚕 Ride</li>
-    <li>🍔 Food</li>
-    <li>📦 Courier</li>
-  </ul>
-</div>
 
-<div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-<!-- Header -->
- <header class="header">
-  <span class="menu-btn" onclick="toggleSidebar()">☰</span>
-  <div class="header-logo">
-    <img src="/log.PNG" alt="AlinGo Logo" class="header-logo-img">
+  <!-- Header -->
+  <header class="header">
+    <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+
+    <div class="header-logo">
+      <!-- 🔥 PATH FIXED -->
+      <img src="public/log.PNG" alt="AlinGo Logo" class="header-logo-img">
+    </div>
+
+    <span>📍</span>
+  </header>
+
+  <!-- Map -->
+  <section class="map-section">
+    <div id="map"></div>
+  </section>
+
+  <!-- Ride Request Panel -->
+  <div id="ride-panel" class="ride-panel hidden">
+    <h3>Request a Ride</h3>
+    <p id="ride-info">Select a nearby driver</p>
+    <button id="request-ride-btn">Request Ride</button>
+    <button id="close-ride-panel">Close</button>
   </div>
-  <span>📍</span>
-</header> 
 
-<!-- Map -->
-<section class="map-section">
-  <div id="map"></div>
-</section>
+  <!-- Services -->
+  <section class="services">
+    <div class="service">🚕<span>Ride</span></div>
+    <div class="service">🍔<span>Food</span></div>
+    <div class="service">📦<span>Courier</span></div>
+    <div class="service">🌦<span>Weather</span></div>
+    <div class="service">🏏<span>Sports</span></div>
+    <div class="service">✈<span>Travel</span></div>
+    <div class="service">🎟<span>Tickets</span></div>
+    <div class="service">🛡<span>Security</span></div>
+  </section>
 
-<!-- Ride Request Panel -->
-<div id="ride-panel" class="ride-panel hidden">
-  <h3>Request a Ride</h3>
-  <p id="ride-info">Select a nearby driver</p>
-  <button id="request-ride-btn">Request Ride</button>
-  <button id="close-ride-panel">Close</button>
-</div>
- 
-<!-- Services -->
-<section class="services">
-  <div class="service">🚕<span>Ride</span></div>
-  <div class="service">🍔<span>Food</span></div>
-  <div class="service">📦<span>Courier</span></div>
-  <div class="service">🌦<span>Weather</span></div>
-  <div class="service">🏏<span>Sports</span></div>
-  <div class="service">✈<span>Travel</span></div>
-  <div class="service">🎟<span>Tickets</span></div>
-  <div class="service">🛡<span>Security</span></div>
-</section>
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <div class="active">🏠</div>
+    <div>🔍</div>
+    <div>📍</div>
+    <div>🔔</div>
+    <div>👤</div>
+  </nav>
 
-<!-- Bottom Nav -->
-<nav class="bottom-nav">
-  <div class="active">🏠</div>
-  <div>🔍</div>
-  <div>📍</div>
-  <div>🔔</div>
-  <div>👤</div>
-</nav>
+  <!-- Leaflet JS (Always Before Your JS) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="js/home.js"></script>
+  <!-- App JS -->
+  <script src="js/home.js"></script>
 
 </body>
 </html>
