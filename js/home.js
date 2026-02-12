@@ -2,17 +2,22 @@ import { auth, db } from "./firebase-config.js";
 import { doc, getDoc, updateDoc }
 from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-document.addEventListener("DOMContentLoaded", function () {
 
-// Hide splash after 2 seconds
+// ===== Splash Hide (LOAD event separate رکھیں) =====
 window.addEventListener("load", () => {
   const splash = document.getElementById("splash");
-  setTimeout(() => {
-    splash.style.opacity = "0";
-    setTimeout(() => splash.style.display = "none", 500);
-  }, 2000); // 2 sec splash
+  if (splash) {
+    setTimeout(() => {
+      splash.style.opacity = "0";
+      setTimeout(() => splash.style.display = "none", 500);
+    }, 2000);
+  }
 });
-  
+
+
+// ===== Main DOM Ready =====
+document.addEventListener("DOMContentLoaded", function () {
+
   // ===== Map Initialize =====
   const map = L.map('map').setView([30.3753, 69.3451], 13);
 
@@ -45,6 +50,7 @@ window.addEventListener("load", () => {
     }
   }
 
+  // ===== Geolocation =====
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function(position) {
@@ -61,12 +67,13 @@ window.addEventListener("load", () => {
     addDrivers(userLat, userLng);
   }
 
-  // ===== Ride Panel =====
+  // ===== Ride Panel Elements =====
   const ridePanel = document.getElementById("ride-panel");
   const rideInfo = document.getElementById("ride-info");
   const requestBtn = document.getElementById("request-ride-btn");
   const closeBtn = document.getElementById("close-ride-panel");
 
+  // ===== Open Ride Panel =====
   document.querySelectorAll(".service").forEach(item => {
     item.addEventListener("click", () => {
       if (item.innerText.includes("Ride")) {
@@ -76,61 +83,76 @@ window.addEventListener("load", () => {
     });
   });
 
-  closeBtn.addEventListener("click", () => {
-    ridePanel.classList.add("hidden");
-  });
+  // ===== Close Ride Panel =====
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      ridePanel.classList.add("hidden");
+    });
+  }
 
   // ===== Ride Request With Wallet Check =====
-  requestBtn.addEventListener("click", async () => {
+  if (requestBtn) {
+    requestBtn.addEventListener("click", async () => {
 
-    const user = auth.currentUser;
+      const user = auth.currentUser;
 
-    if (!user) {
-      alert("Please login first.");
-      window.location.href = "login.html";
-      return;
-    }
+      if (!user) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+        return;
+      }
 
-    const userRef = doc(db, "users", user.uid);
-    const snap = await getDoc(userRef);
-    let currentWallet = snap.data().wallet;
+      const userRef = doc(db, "users", user.uid);
+      const snap = await getDoc(userRef);
 
-    if (currentWallet < 200) {
-      rideInfo.textContent = "Insufficient wallet balance!";
-      return;
-    }
+      if (!snap.exists()) {
+        rideInfo.textContent = "User data not found.";
+        return;
+      }
 
-    if (driverMarkers.length === 0) {
-      rideInfo.textContent = "No drivers nearby!";
-      return;
-    }
+      let currentWallet = snap.data().wallet;
 
-    const driver = driverMarkers[Math.floor(Math.random() * driverMarkers.length)];
+      if (currentWallet < 200) {
+        rideInfo.textContent = "Insufficient wallet balance!";
+        return;
+      }
 
-    driver.bindPopup("🚕 Driver Assigned! ETA 5 min").openPopup();
-    rideInfo.textContent = "Ride requested! Driver on the way 🚖";
+      if (driverMarkers.length === 0) {
+        rideInfo.textContent = "No drivers nearby!";
+        return;
+      }
 
-    // Simulate arrival
-    setTimeout(() => {
-      rideInfo.textContent = "Driver has arrived.";
-    }, 8000);
+      const driver = driverMarkers[Math.floor(Math.random() * driverMarkers.length)];
 
-    // ===== Ride Complete & Deduct Wallet =====
-    setTimeout(async () => {
+      driver.bindPopup("🚕 Driver Assigned! ETA 5 min").openPopup();
+      rideInfo.textContent = "Ride requested! Driver on the way 🚖";
 
-      await updateDoc(userRef, {
-        wallet: currentWallet - 200
-      });
+      // Simulate arrival
+      setTimeout(() => {
+        rideInfo.textContent = "Driver has arrived.";
+      }, 8000);
 
-      rideInfo.textContent = "Ride Completed. ₨200 deducted";
+      // ===== Ride Complete & Deduct Wallet =====
+      setTimeout(async () => {
 
-    }, 15000);
+        const freshSnap = await getDoc(userRef);
+        let updatedWallet = freshSnap.data().wallet;
 
-  });
+        await updateDoc(userRef, {
+          wallet: updatedWallet - 200
+        });
+
+        rideInfo.textContent = "Ride Completed. ₨200 deducted";
+
+      }, 15000);
+
+    });
+  }
 
 });
 
-// Sidebar toggle (unchanged)
+
+// ===== Sidebar toggle (unchanged) =====
 function toggleSidebar() {
   document.getElementById("sidebar").classList.toggle("active");
   document.getElementById("overlay").classList.toggle("active");
