@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  background: black;
+  color: #39FF14;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Electric Green Lightning Lines */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 150%;
+  height: 2px;
+  background: #39FF14;
+  box-shadow: 0 0 20px #39FF14, 0 0 40px #39FF14;
+  transform: rotate(25deg);
+  top: 30%;
+  left: -20%;
+  z-index: 0;
+}
+
+body::after {
+  transform: rotate(-25deg);
+  top: 70%;
+}
