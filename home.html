@@ -14,6 +14,15 @@
 </head>
 <body>
 
+ <!-- Splash Screen -->
+<div id="splash" class="splash">
+  <div class="logo-wrapper">
+    <img src="/log.PNG" alt="AlinGo Logo">
+  </div>
+  <h1>AlinGo</h1>
+  <p>All-in-One Super App</p>
+</div>
+ 
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
   <div class="sidebar-header">
@@ -31,11 +40,13 @@
 <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
 <!-- Header -->
-<header class="header">
+ <header class="header">
   <span class="menu-btn" onclick="toggleSidebar()">☰</span>
-  <h2>AlinGo</h2>
+  <div class="header-logo">
+    <img src="/log.PNG" alt="AlinGo Logo" class="header-logo-img">
+  </div>
   <span>📍</span>
-</header>
+</header> 
 
 <!-- Map -->
 <section class="map-section">
