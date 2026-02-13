@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlinGo - Sports</title>
+    <link rel="stylesheet" href="../global.css">
+    <style>
+        .tabs { display: flex; justify-content: space-around; margin: 20px 0; border-bottom: 1px solid #333; }
+        .tab { color: #555; padding: 10px; cursor: pointer; font-size: 0.8rem; }
+        .tab.active { color: var(--neon); border-bottom: 2px solid var(--neon); }
+        .stat-row { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #111; font-size: 0.9rem; }
+        .commentary-box { height: 200px; overflow-y: auto; padding: 10px; background: rgba(0,0,0,0.5); border-radius: 10px; }
+        .ball { color: var(--neon); font-weight: bold; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="lightning-wrapper"><div class="bolt"></div><div class="bolt"></div></div>
+    <div class="app-shell">
+        <button class="glow-button" style="padding: 5px 15px;" onclick="location.href='../../index.html'">← BACK</button>
+        
+        <div class="live-match-card neon-box" style="margin-top:15px; padding:15px;">
+            <div style="text-align:center; color:var(--neon); font-size:0.7rem;">LIVE - ICC CHAMPIONS TROPHY</div>
+            <div style="display:flex; justify-content:space-around; align-items:center; margin:15px 0;">
+                <div style="text-align:center;"><strong>PAK</strong><br><small>152/2</small></div>
+                <div style="font-size:1.2rem; font-weight:bold; color:var(--neon);">VS</div>
+                <div style="text-align:center;"><strong>AUS</strong><br><small>Yet to bat</small></div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active">LIVE</div>
+            <div class="tab" onclick="alert('Stats Coming Soon')">TEAM STATS</div>
+            <div class="tab" onclick="alert('Full Commentary Coming Soon')">COMMENTARY</div>
+        </div>
+
+        <div class="commentary-box neon-box">
+            <div class="stat-row"><span class="ball">18.2</span> Shaheen to Maxwell, 1 Run.</div>
+            <div class="stat-row"><span class="ball">18.1</span> Shaheen to Maxwell, 0 Run.</div>
+            <div class="stat-row" style="color:var(--neon);"><span class="ball">17.6</span> OUT! Babar Azam takes the catch.</div>
+        </div>
+    </div>
+</body>
+</html>
