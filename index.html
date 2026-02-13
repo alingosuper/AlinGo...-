@@ -3,56 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlinGo - All in One</title>
-    
+    <title>AlinGo - Home</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="src/global.css">
 </head>
 <body>
 
+    <div class="lightning-bg"></div>
+
     <div class="app-container">
-        <h1 class="logo-text">AlinGo</h1>
+        <h1 class="logo">AlinGo</h1>
 
         <div id="map" class="neon-border"></div>
 
         <div class="info-grid">
-            <div class="neon-border card">
-                <span>☀️</span>
-                <h3>28°C</h3>
-                <p>Multan</p>
+            <div class="card neon-border">
+                <span class="icon">☀️</span>
+                <div class="data">28°C</div>
+                <div class="label">Multan</div>
             </div>
-            <div class="neon-border card">
-                <span>🏏</span>
-                <h3>PAK vs AUS</h3>
-                <p class="live-tag">LIVE</p>
+            <div class="card neon-border">
+                <span class="icon">🏏</span>
+                <div class="data">PAK vs AUS</div>
+                <div class="label live">LIVE</div>
             </div>
         </div>
 
-        <button class="main-btn" onclick="startRide()">START NEW RIDE</button>
+        <button class="ride-btn">START NEW RIDE</button>
 
         <nav class="bottom-nav">
             <div class="nav-item active">🏠<br>Home</div>
-            <div class="nav-item" onclick="location.href='src/screens/RideTracking.html'">🚗<br>Rides</div>
-            <div class="nav-item" onclick="location.href='src/screens/SportsLive.html'">🏆<br>Sports</div>
+            <div class="nav-item">🚗<br>Rides</div>
+            <div class="nav-item">🏆<br>Sports</div>
             <div class="nav-item">👤<br>Profile</div>
         </nav>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Initialize Map
-        var map = L.map('map').setView([30.1575, 71.5249], 13);
+        // میپ کی سیٹنگ
+        var map = L.map('map', {
+            zoomControl: false
+        }).setView([30.1575, 71.5249], 13);
+
+        // ڈارک تھیم میپ لیئر
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
             attribution: 'AlinGo Maps'
         }).addTo(map);
 
-        L.marker([30.1575, 71.5249]).addTo(map)
-            .bindPopup('آپ یہاں ہیں۔')
-            .openPopup();
-
-        function startRide() {
-            alert("رائیڈ شروع ہو رہی ہے...");
-        }
+        // یوزر کی لوکیشن کا مارکر
+        L.circle([30.1575, 71.5249], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 500
+        }).addTo(map).bindPopup("آپ کی لوکیشن");
     </script>
 </body>
 </html>
