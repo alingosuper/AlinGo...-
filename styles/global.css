@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: black;
+  color: #00ff66;
+  overflow-x: hidden;
+}
+
+/* Lightning Background */
+body::before {
+  content: "";
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    120deg,
+    rgba(0, 255, 100, 0.08),
+    rgba(0, 255, 100, 0.08) 2px,
+    transparent 2px,
+    transparent 40px
+  );
+  animation: lightning 8s linear infinite;
+  z-index: -1;
+}
+
+@keyframes lightning {
+  from { transform: translateX(0); }
+  to { transform: translateX(-200px); }
+}
+
+button {
+  background: black;
+  border: 2px solid #00ff66;
+  color: #00ff66;
+  padding: 10px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #00ff66;
+  color: black;
+}
