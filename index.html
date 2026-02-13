@@ -3,90 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlinGo - Green Neon Edition</title>
+    <title>AlinGo Green Edition</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="src/global.css">
 </head>
 <body>
 
-    <div class="lightning-container">
+    <div class="lightning-wrapper">
         <div class="bolt"></div>
         <div class="bolt"></div>
         <div class="bolt"></div>
     </div>
 
-    <div class="app-container">
-        <header class="top-bar">
-            <div class="menu-icon">☰</div>
-            <h1 class="logo">AlinGo</h1>
-            <div class="status-dot"></div>
+    <div class="app-shell">
+        <header class="navbar">
+            <div class="menu-trigger"><span></span><span></span><span></span></div>
+            <h1 class="brand">AlinGo</h1>
+            <div class="profile-glow"></div>
         </header>
 
-        <div id="map" class="neon-border-green"></div>
+        <div id="map-container" class="neon-box"></div>
 
-        <div class="features-grid">
-            <div class="feature-card neon-border-green">
-                <div class="card-content">
-                    <span class="icon">☀️</span>
-                    <div>
-                        <div class="title">WEATHER</div>
-                        <div class="value">28°C</div>
+        <div class="widgets-container">
+            <div class="mini-card neon-box">
+                <div class="card-inner">
+                    <span class="icon-glow">☀️</span>
+                    <div class="text-data">
+                        <small>WEATHER</small>
+                        <strong>28°C</strong>
                     </div>
                 </div>
             </div>
-            <div class="feature-card neon-border-green">
-                <div class="card-content">
-                    <span class="icon">🏏</span>
-                    <div>
-                        <div class="title">LIVE SCORE!</div>
-                        <div class="value">PAK vs AUS</div>
+            <div class="mini-card neon-box">
+                <div class="card-inner">
+                    <span class="icon-glow">🏏</span>
+                    <div class="text-data">
+                        <small>LIVE SCORE!</small>
+                        <strong class="live-blink">PAK vs AUS</strong>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="action-bar neon-border-green">
-            <span class="label">SPORTS</span>
-            <button class="start-btn">START RIDE</button>
-            <div class="location-info">
-                <span>📍</span>
+        <div class="action-panel neon-box">
+            <span class="side-label">SPORTS</span>
+            <button class="glow-button">START RIDE</button>
+            <div class="loc-tag">
+                <span class="pin">📍</span>
                 <small>LOCATION</small>
             </div>
         </div>
 
-        <nav class="bottom-nav">
-            <div class="nav-item active">
-                <div class="nav-icon neon-circle">🏠</div>
+        <footer class="footer-nav">
+            <div class="nav-btn active">
+                <div class="icon-circle">🏠</div>
                 <span>HOME</span>
             </div>
-            <div class="nav-item">
-                <div class="nav-icon neon-circle">🚗</div>
+            <div class="nav-btn">
+                <div class="icon-circle">🚗</div>
                 <span>RIDES</span>
             </div>
-            <div class="nav-item">
-                <div class="nav-icon neon-circle">🏁</div>
+            <div class="nav-btn">
+                <div class="icon-circle">🏆</div>
                 <span>SPORTS</span>
             </div>
-            <div class="nav-item">
-                <div class="nav-icon neon-circle">👤</div>
+            <div class="nav-btn">
+                <div class="icon-circle">👤</div>
                 <span>PROFILE</span>
             </div>
-        </nav>
+        </footer>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        var map = L.map('map', {zoomControl: false}).setView([30.1575, 71.5249], 14);
-        
-        // ڈارک میپ تھیم
+        var map = L.map('map-container', {zoomControl: false}).setView([30.1575, 71.5249], 14);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 
-        // سبز چمکدار مارکر اور راستہ
-        var greenIcon = L.divIcon({className: 'neon-marker'});
-        L.marker([30.1575, 71.5249], {icon: greenIcon}).addTo(map);
-        
-        var latlngs = [[30.1575, 71.5249], [30.1650, 71.5350], [30.1700, 71.5450]];
-        L.polyline(latlngs, {color: '#39FF14', weight: 3, opacity: 0.8}).addTo(map);
+        // تصویر جیسا سبز چمکدار راستہ
+        var path = [[30.1500, 71.5200], [30.1575, 71.5300], [30.1650, 71.5400]];
+        L.polyline(path, {color: '#39FF14', weight: 4, opacity: 0.8, lineJoin: 'round'}).addTo(map);
+        L.circle([30.1650, 71.5400], {radius: 150, color: '#39FF14', fillColor: '#39FF14', fillOpacity: 0.5}).addTo(map);
     </script>
 </body>
 </html>
