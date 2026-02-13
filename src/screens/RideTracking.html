@@ -9,15 +9,18 @@
 </head>
 <body>
     <div class="app-shell">
-        <button class="glow-button" style="padding: 5px 15px;" onclick="location.href='../../index.html'">← BACK</button>
-        <h2 style="text-align:center; color:var(--neon);">TRACKING RIDE</h2>
-        
-        <div id="map-container" class="neon-box" style="height: 400px; margin-top:10px;"></div>
-        
-        <div class="action-panel neon-box" style="margin-top:20px;">
-            <div><small>DISTANCE</small><br><strong>4.2 KM</strong></div>
-            <button class="glow-button" style="background:red; color:white; box-shadow: 0 0 15px red;">FINISH</button>
-            <div><small>TIME</small><br><strong>12 MIN</strong></div>
+        <header class="navbar">
+            <button class="glow-button" onclick="location.href='/index.html'">← BACK</button>
+            <h2 style="color:#39FF14">TRACKING</h2>
+            <div class="profile-glow"></div>
+        </header>
+
+        <div id="map-container" class="neon-box" style="height: 350px; margin: 15px 0;"></div>
+
+        <div class="action-panel neon-box">
+            <div><small>DIST</small><br><strong>3.5 KM</strong></div>
+            <button class="glow-button" style="background:#ff0000; box-shadow: 0 0 15px #ff0000;">STOP</button>
+            <div><small>TIME</small><br><strong>08 MIN</strong></div>
         </div>
     </div>
 
@@ -26,16 +29,14 @@
         var map = L.map('map-container', {zoomControl: false}).setView([30.1575, 71.5249], 15);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
         
-        // اینیمیٹڈ کار مارکر (سبز دائرہ)
-        var carMarker = L.circle([30.1575, 71.5249], {radius: 50, color: '#39FF14', fillColor: '#39FF14', fillOpacity: 0.8}).addTo(map);
+        var car = L.circle([30.1575, 71.5249], {radius: 40, color: '#39FF14', fillColor: '#39FF14', fillOpacity: 1}).addTo(map);
         
-        // گاڑی کو حرکت دینے کا فنکشن (Demo)
+        // گاڑی کی حرکت کی اینیمیشن
         setInterval(() => {
-            var lat = carMarker.getLatLng().lat + 0.0001;
-            var lng = carMarker.getLatLng().lng + 0.0001;
-            carMarker.setLatLng([lat, lng]);
-            map.panTo([lat, lng]);
-        }, 2000);
+            var c = car.getLatLng();
+            car.setLatLng([c.lat + 0.0001, c.lng + 0.0001]);
+            map.panTo(car.getLatLng());
+        }, 1500);
     </script>
 </body>
 </html>
