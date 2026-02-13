@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlinGo - Ride</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="../global.css">
+</head>
+<body>
+    <div class="app-shell">
+        <button class="glow-button" style="padding: 5px 15px;" onclick="location.href='../../index.html'">← BACK</button>
+        <h2 style="text-align:center; color:var(--neon);">TRACKING RIDE</h2>
+        
+        <div id="map-container" class="neon-box" style="height: 400px; margin-top:10px;"></div>
+        
+        <div class="action-panel neon-box" style="margin-top:20px;">
+            <div><small>DISTANCE</small><br><strong>4.2 KM</strong></div>
+            <button class="glow-button" style="background:red; color:white; box-shadow: 0 0 15px red;">FINISH</button>
+            <div><small>TIME</small><br><strong>12 MIN</strong></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map-container', {zoomControl: false}).setView([30.1575, 71.5249], 15);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+        
+        // اینیمیٹڈ کار مارکر (سبز دائرہ)
+        var carMarker = L.circle([30.1575, 71.5249], {radius: 50, color: '#39FF14', fillColor: '#39FF14', fillOpacity: 0.8}).addTo(map);
+        
+        // گاڑی کو حرکت دینے کا فنکشن (Demo)
+        setInterval(() => {
+            var lat = carMarker.getLatLng().lat + 0.0001;
+            var lng = carMarker.getLatLng().lng + 0.0001;
+            carMarker.setLatLng([lat, lng]);
+            map.panTo([lat, lng]);
+        }, 2000);
+    </script>
+</body>
+</html>
