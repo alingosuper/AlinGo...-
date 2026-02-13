@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="src/global.css">
     <style>
-        /* لوگو کے لیے خصوصی اسٹائل */
         .logo-wrapper {
             display: flex;
             justify-content: center;
@@ -15,12 +14,11 @@
             flex-grow: 1;
         }
         .app-logo {
-            height: 45px; /* لوگو کا سائز */
+            height: 45px;
             width: auto;
-            filter: drop-shadow(0 0 10px #39FF14); /* لوگو کے گرد نیون چمک */
+            filter: drop-shadow(0 0 10px #39FF14);
             object-fit: contain;
         }
-        /* نیویار بار میں ایڈجسٹمنٹ */
         .navbar {
             display: flex;
             align-items: center;
@@ -28,13 +26,15 @@
             width: 100%;
             padding: 5px 0;
         }
+        /* کلک ایبل بنانے کے لیے کرسر */
+        .nav-btn, .mini-card, .glow-button { cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="lightning-wrapper">
         <div class="bolt"></div>
-        <div class="bolt"></div>
+        <div class="bolt)</div>
         <div class="bolt"></div>
     </div>
 
@@ -52,7 +52,7 @@
         <div id="map-container" class="neon-box"></div>
 
         <div class="widgets-container">
-            <div class="mini-card neon-box">
+            <div class="mini-card neon-box" onclick="location.href='src/screens/Weather.html'">
                 <div class="card-inner">
                     <span class="icon-glow">☀️</span>
                     <div class="text-data">
@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mini-card neon-box">
+            <div class="mini-card neon-box" onclick="location.href='src/screens/SportsLive.html'">
                 <div class="card-inner">
                     <span class="icon-glow">🏏</span>
                     <div class="text-data">
@@ -74,7 +74,7 @@
 
         <div class="action-panel neon-box">
             <span class="side-label">SPORTS</span>
-            <button class="glow-button">START RIDE</button>
+            <button class="glow-button" onclick="location.href='src/screens/RideTracking.html'">START RIDE</button>
             <div class="loc-tag">
                 <span class="pin">📍</span>
                 <small>LOCATION</small>
@@ -82,19 +82,19 @@
         </div>
 
         <footer class="footer-nav">
-            <div class="nav-btn active">
+            <div class="nav-btn active" onclick="location.href='index.html'">
                 <div class="icon-circle">🏠</div>
                 <span>HOME</span>
             </div>
-            <div class="nav-btn">
+            <div class="nav-btn" onclick="location.href='src/screens/RideTracking.html'">
                 <div class="icon-circle">🚗</div>
                 <span>RIDES</span>
             </div>
-            <div class="nav-btn">
+            <div class="nav-btn" onclick="location.href='src/screens/SportsLive.html'">
                 <div class="icon-circle">🏆</div>
                 <span>SPORTS</span>
             </div>
-            <div class="nav-btn">
+            <div class="nav-btn" onclick="location.href='src/screens/Profile.html'">
                 <div class="icon-circle">👤</div>
                 <span>PROFILE</span>
             </div>
