@@ -5,29 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AlinGo - Profile</title>
     <link rel="stylesheet" href="../global.css">
-    <style>
-        .user-info { text-align: center; margin-top: 20px; }
-        .avatar-glow { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--neon); margin: 0 auto; box-shadow: 0 0 20px var(--neon); padding: 5px; }
-        .list-item { background: rgba(20,20,20,0.8); padding: 15px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; }
-    </style>
 </head>
 <body>
     <div class="app-shell">
-        <button class="glow-button" style="padding: 5px 15px;" onclick="location.href='../../index.html'">← BACK</button>
-        
-        <div class="user-info">
-            <div class="avatar-glow">
-                <img src="../../assets/logo.png" style="width:100%; height:100%; border-radius:50%; object-fit:contain;">
+        <header class="navbar">
+            <button class="glow-button" onclick="location.href='/index.html'">← BACK</button>
+            <h2 style="color:#39FF14">PROFILE</h2>
+            <div class="profile-glow"></div>
+        </header>
+
+        <div style="text-align:center; margin-top:30px;">
+            <div style="width:100px; height:100px; border-radius:50%; border:3px solid #39FF14; margin:0 auto; padding:5px; box-shadow: 0 0 20px #39FF14;">
+                <img src="/assets/logo.png" style="width:100%; height:100%; border-radius:50%; object-fit:contain;">
             </div>
-            <h3 style="margin-top:15px;">AlinGo User</h3>
-            <p style="color:var(--neon); font-size:0.8rem;">Premium Member</p>
+            <h3 style="margin-top:20px;">AlinGo Member</h3>
+            <p style="color:#555;">ID: #78692</p>
         </div>
 
-        <div style="margin-top:30px;">
-            <div class="list-item neon-box"><span>My Rides</span> <span>➔</span></div>
-            <div class="list-item neon-box"><span>Settings</span> <span>➔</span></div>
-            <div class="list-item neon-box"><span>Help Center</span> <span>➔</span></div>
-            <div class="list-item neon-box" style="border-color:red; color:red;"><span>Logout</span></div>
+        <div style="padding:20px;">
+            <div class="neon-box" style="padding:15px; margin-bottom:10px;">MY RIDES ➔</div>
+            <div class="neon-box" style="padding:15px; margin-bottom:10px;">WALLET ➔</div>
+            <div class="neon-box" style="padding:15px; margin-bottom:10px; border-color:red; color:red;">LOGOUT</div>
         </div>
     </div>
 </body>
