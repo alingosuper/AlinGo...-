@@ -1,80 +1,116 @@
 :root {
-    --black: #000000;
     --neon-red: #ff0000;
+    --dark-red: #330000;
+    --bg-black: #000000;
 }
 
 body {
     margin: 0;
-    background-color: var(--black);
+    padding: 0;
+    background-color: var(--bg-black);
     color: white;
-    font-family: Arial, sans-serif;
-    /* بجلی کی لکیروں والا بیک گراؤنڈ */
-    background-image: 
-        linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
-        repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(255, 0, 0, 0.05) 100px, rgba(255, 0, 0, 0.05) 101px),
-        repeating-linear-gradient(-45deg, transparent, transparent 150px, rgba(255, 0, 0, 0.03) 150px, rgba(255, 0, 0, 0.03) 151px);
-    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
+
+/* بجلی جیسی چمکدار لکیریں (Lightning Animation) */
+.lightning-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+    opacity: 0.3;
+}
+
+.lightning-bg::before, .lightning-bg::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent 0%,
+        transparent 10%,
+        var(--neon-red) 10.1%,
+        transparent 10.2%
+    );
+    animation: lightningMove 8s linear infinite;
+    filter: blur(1px) drop-shadow(0 0 10px var(--neon-red));
+}
+
+@keyframes lightningMove {
+    0% { transform: rotate(0deg) translateY(0); }
+    100% { transform: rotate(360deg) translateY(50px); }
 }
 
 .app-container {
-    padding: 15px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
-.logo-text {
+.logo {
     color: var(--neon-red);
-    text-shadow: 0 0 15px var(--neon-red);
+    text-shadow: 0 0 20px var(--neon-red);
     text-align: center;
     font-style: italic;
     font-size: 2.5rem;
+    margin: 10px 0;
 }
 
 #map {
-    height: 250px;
+    height: 280px;
     width: 100%;
-    margin: 15px 0;
+    margin-bottom: 20px;
+    z-index: 1;
 }
 
 .neon-border {
-    border: 1px solid var(--neon-red);
-    box-shadow: 0 0 15px var(--neon-red);
-    border-radius: 12px;
+    border: 2px solid var(--neon-red);
+    box-shadow: 0 0 15px var(--neon-red), inset 0 0 10px var(--dark-red);
+    border-radius: 15px;
 }
 
 .info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    margin-top: 10px;
 }
 
 .card {
     padding: 15px;
     text-align: center;
-    background: rgba(20, 0, 0, 0.6);
+    background: rgba(10, 0, 0, 0.8);
 }
 
-.live-tag {
-    color: var(--neon-red);
-    font-weight: bold;
-    animation: blink 1s infinite;
+.card .icon { font-size: 1.5rem; }
+.card .data { font-size: 1.2rem; font-weight: bold; margin-top: 5px; }
+.label { font-size: 0.8rem; color: #888; }
+.live { color: var(--neon-red); animation: pulse 1s infinite; }
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
 }
 
-@keyframes blink {
-    50% { opacity: 0; }
-}
-
-.main-btn {
+.ride-btn {
     background: var(--neon-red);
     color: white;
     border: none;
     padding: 18px;
-    border-radius: 50px;
-    font-size: 1.2rem;
+    border-radius: 12px;
+    font-size: 1.3rem;
     font-weight: bold;
-    box-shadow: 0 0 20px var(--neon-red);
-    margin: 25px 0;
+    box-shadow: 0 0 25px var(--neon-red);
+    margin-top: auto;
+    margin-bottom: 80px;
 }
 
 .bottom-nav {
@@ -82,19 +118,12 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(0,0,0,0.95);
+    background: rgba(0,0,0,0.9);
+    border-top: 2px solid var(--neon-red);
     display: flex;
     justify-content: space-around;
-    padding: 15px 0;
-    border-top: 2px solid var(--neon-red);
+    padding: 12px 0;
 }
 
-.nav-item {
-    font-size: 0.8rem;
-    color: #666;
-    text-align: center;
-}
-
-.nav-item.active {
-    color: var(--neon-red);
-}
+.nav-item { font-size: 0.75rem; color: #555; text-align: center; }
+.nav-item.active { color: var(--neon-red); text-shadow: 0 0 5px var(--neon-red); }
