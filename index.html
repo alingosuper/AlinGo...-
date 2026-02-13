@@ -3,61 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlinGo - Home</title>
+    <title>AlinGo - Green Neon Edition</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="src/global.css">
 </head>
 <body>
 
-    <div class="lightning-bg"></div>
+    <div class="lightning-container">
+        <div class="bolt"></div>
+        <div class="bolt"></div>
+        <div class="bolt"></div>
+    </div>
 
     <div class="app-container">
-        <h1 class="logo">AlinGo</h1>
+        <header class="top-bar">
+            <div class="menu-icon">☰</div>
+            <h1 class="logo">AlinGo</h1>
+            <div class="status-dot"></div>
+        </header>
 
-        <div id="map" class="neon-border"></div>
+        <div id="map" class="neon-border-green"></div>
 
-        <div class="info-grid">
-            <div class="card neon-border">
-                <span class="icon">☀️</span>
-                <div class="data">28°C</div>
-                <div class="label">Multan</div>
+        <div class="features-grid">
+            <div class="feature-card neon-border-green">
+                <div class="card-content">
+                    <span class="icon">☀️</span>
+                    <div>
+                        <div class="title">WEATHER</div>
+                        <div class="value">28°C</div>
+                    </div>
+                </div>
             </div>
-            <div class="card neon-border">
-                <span class="icon">🏏</span>
-                <div class="data">PAK vs AUS</div>
-                <div class="label live">LIVE</div>
+            <div class="feature-card neon-border-green">
+                <div class="card-content">
+                    <span class="icon">🏏</span>
+                    <div>
+                        <div class="title">LIVE SCORE!</div>
+                        <div class="value">PAK vs AUS</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <button class="ride-btn">START NEW RIDE</button>
+        <div class="action-bar neon-border-green">
+            <span class="label">SPORTS</span>
+            <button class="start-btn">START RIDE</button>
+            <div class="location-info">
+                <span>📍</span>
+                <small>LOCATION</small>
+            </div>
+        </div>
 
         <nav class="bottom-nav">
-            <div class="nav-item active">🏠<br>Home</div>
-            <div class="nav-item">🚗<br>Rides</div>
-            <div class="nav-item">🏆<br>Sports</div>
-            <div class="nav-item">👤<br>Profile</div>
+            <div class="nav-item active">
+                <div class="nav-icon neon-circle">🏠</div>
+                <span>HOME</span>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon neon-circle">🚗</div>
+                <span>RIDES</span>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon neon-circle">🏁</div>
+                <span>SPORTS</span>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon neon-circle">👤</div>
+                <span>PROFILE</span>
+            </div>
         </nav>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // میپ کی سیٹنگ
-        var map = L.map('map', {
-            zoomControl: false
-        }).setView([30.1575, 71.5249], 13);
+        var map = L.map('map', {zoomControl: false}).setView([30.1575, 71.5249], 14);
+        
+        // ڈارک میپ تھیم
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 
-        // ڈارک تھیم میپ لیئر
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: 'AlinGo Maps'
-        }).addTo(map);
-
-        // یوزر کی لوکیشن کا مارکر
-        L.circle([30.1575, 71.5249], {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: 500
-        }).addTo(map).bindPopup("آپ کی لوکیشن");
+        // سبز چمکدار مارکر اور راستہ
+        var greenIcon = L.divIcon({className: 'neon-marker'});
+        L.marker([30.1575, 71.5249], {icon: greenIcon}).addTo(map);
+        
+        var latlngs = [[30.1575, 71.5249], [30.1650, 71.5350], [30.1700, 71.5450]];
+        L.polyline(latlngs, {color: '#39FF14', weight: 3, opacity: 0.8}).addTo(map);
     </script>
 </body>
 </html>
