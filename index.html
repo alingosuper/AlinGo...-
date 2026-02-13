@@ -6,6 +6,29 @@
     <title>AlinGo Green Edition</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="src/global.css">
+    <style>
+        /* لوگو کے لیے خصوصی اسٹائل */
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+        .app-logo {
+            height: 45px; /* لوگو کا سائز */
+            width: auto;
+            filter: drop-shadow(0 0 10px #39FF14); /* لوگو کے گرد نیون چمک */
+            object-fit: contain;
+        }
+        /* نیویار بار میں ایڈجسٹمنٹ */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 5px 0;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,7 +41,11 @@
     <div class="app-shell">
         <header class="navbar">
             <div class="menu-trigger"><span></span><span></span><span></span></div>
-            <h1 class="brand">AlinGo</h1>
+            
+            <div class="logo-wrapper">
+                <img src="assets/logo.png" alt="AlinGo" class="app-logo">
+            </div>
+            
             <div class="profile-glow"></div>
         </header>
 
@@ -79,7 +106,6 @@
         var map = L.map('map-container', {zoomControl: false}).setView([30.1575, 71.5249], 14);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 
-        // تصویر جیسا سبز چمکدار راستہ
         var path = [[30.1500, 71.5200], [30.1575, 71.5300], [30.1650, 71.5400]];
         L.polyline(path, {color: '#39FF14', weight: 4, opacity: 0.8, lineJoin: 'round'}).addTo(map);
         L.circle([30.1650, 71.5400], {radius: 150, color: '#39FF14', fillColor: '#39FF14', fillOpacity: 0.5}).addTo(map);
