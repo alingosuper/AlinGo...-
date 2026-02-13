@@ -1,139 +1,109 @@
 :root {
-    --neon-green: #39FF14;
-    --dark-bg: #050505;
-    --glow: 0 0 15px rgba(57, 255, 20, 0.7);
+    --neon: #39FF14;
+    --bg: #000000;
+    --panel-bg: rgba(10, 10, 10, 0.9);
 }
 
 body {
     margin: 0;
-    background-color: var(--dark-bg);
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: #fff;
+    font-family: sans-serif;
     overflow: hidden;
 }
 
-/* بجلی جیسی سبز لکیریں */
-.lightning-container {
+/* بیک گراؤنڈ بجلی کی لکیریں */
+.lightning-wrapper {
     position: fixed;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1;
-    overflow: hidden;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .bolt {
     position: absolute;
-    width: 2px;
-    height: 1000px;
-    background: var(--neon-green);
-    box-shadow: var(--glow);
+    background: var(--neon);
+    width: 2px; height: 150%;
+    box-shadow: 0 0 20px var(--neon);
+    transform: rotate(30deg);
     filter: blur(1px);
-    transform: rotate(35deg);
 }
+.bolt:nth-child(1) { left: 15%; top: -20%; animation: blink 4s infinite; }
+.bolt:nth-child(2) { left: 60%; top: -50%; transform: rotate(-20deg); animation: blink 6s infinite; }
+.bolt:nth-child(3) { left: 80%; top: -10%; animation: blink 3s infinite; }
 
-.bolt:nth-child(1) { left: 10%; top: -20%; animation: flicker 3s infinite; }
-.bolt:nth-child(2) { left: 50%; top: -50%; transform: rotate(-25deg); animation: flicker 4s infinite; }
-.bolt:nth-child(3) { left: 85%; top: -10%; animation: flicker 2s infinite; }
+@keyframes blink { 0%, 100% { opacity: 0.1; } 50% { opacity: 1; } }
 
-@keyframes flicker {
-    0%, 100% { opacity: 0.1; }
-    50% { opacity: 1; }
-}
-
-.app-container {
-    padding: 20px;
+/* مین کنٹینر */
+.app-shell {
+    padding: 15px;
     height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-.logo {
-    font-size: 1.8rem;
-    color: white;
-    text-align: center;
-    letter-spacing: 2px;
-}
+.brand { color: #fff; text-shadow: 0 0 10px var(--neon); letter-spacing: 2px; }
 
-#map {
-    height: 250px;
+/* نیون باکس اسٹائل */
+.neon-box {
+    border: 2.5px solid var(--neon);
+    box-shadow: 0 0 15px var(--neon), inset 0 0 8px rgba(57, 255, 20, 0.3);
     border-radius: 20px;
-    margin: 15px 0;
+    background: var(--panel-bg);
 }
 
-.neon-border-green {
-    border: 2px solid var(--neon-green);
-    box-shadow: var(--glow), inset 0 0 10px rgba(57, 255, 20, 0.2);
-    border-radius: 15px;
-}
+#map-container { height: 260px; margin: 15px 0; }
 
-.features-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 20px;
-}
+.widgets-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-.feature-card {
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.6);
-}
+.mini-card { padding: 12px; }
+.card-inner { display: flex; align-items: center; gap: 8px; }
+.icon-glow { font-size: 1.4rem; filter: drop-shadow(0 0 5px var(--neon)); }
+.text-data small { font-size: 0.6rem; color: #888; display: block; }
+.text-data strong { font-size: 0.8rem; }
 
-.card-content {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.title { font-size: 0.7rem; color: #aaa; }
-.value { font-size: 0.9rem; font-weight: bold; }
-
-.action-bar {
+/* بٹن پینل */
+.action-panel {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background: rgba(0, 0, 0, 0.8);
+    margin-top: 15px;
 }
 
-.start-btn {
-    background: var(--neon-green);
-    color: black;
+.glow-button {
+    background: var(--neon);
+    color: #000;
     border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    font-weight: bold;
-    box-shadow: var(--glow);
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 900;
+    box-shadow: 0 0 20px var(--neon);
+    cursor: pointer;
 }
 
-.bottom-nav {
+/* باٹم نیو */
+.footer-nav {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 20px 0;
+    bottom: 0; left: 0; width: 100%;
+    display: flex; justify-content: space-around;
+    padding: 15px 0;
     background: #000;
-    border-top: 1px solid #333;
+    border-top: 1px solid #222;
 }
 
-.nav-item {
-    text-align: center;
-    font-size: 0.6rem;
-    color: #666;
-}
+.nav-btn { text-align: center; color: #555; font-size: 0.6rem; }
+.nav-btn.active { color: var(--neon); }
 
-.nav-item.active { color: var(--neon-green); }
-
-.neon-circle {
-    width: 45px;
-    height: 45px;
-    border: 2px solid var(--neon-green);
+.icon-circle {
+    width: 45px; height: 45px;
+    border: 2px solid var(--neon);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     margin-bottom: 5px;
-    box-shadow: var(--glow);
+    box-shadow: 0 0 10px var(--neon);
+    font-size: 1.2rem;
 }
+
+.live-blink { color: var(--neon); animation: pulse 1.5s infinite; }
+@keyframes pulse { 50% { opacity: 0.4; } }
