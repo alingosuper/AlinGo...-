@@ -7,27 +7,19 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="src/global.css">
     <style>
-        .logo-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-grow: 1;
-        }
-        .app-logo {
-            height: 45px;
-            width: auto;
-            filter: drop-shadow(0 0 10px #39FF14);
-            object-fit: contain;
-        }
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding: 5px 0;
-        }
-        /* کلک ایبل بنانے کے لیے کرسر */
+        .logo-wrapper { display: flex; justify-content: center; align-items: center; flex-grow: 1; }
+        .app-logo { height: 45px; width: auto; filter: drop-shadow(0 0 10px #39FF14); object-fit: contain; }
+        .navbar { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 5px 0; }
         .nav-btn, .mini-card, .glow-button { cursor: pointer; }
+        
+        /* ایڈمن پینل کے لیے اضافی اسٹائل */
+        .hidden { display: none; }
+        #admin-panel {
+            position: fixed; top: 10%; left: 5%; right: 5%; z-index: 1000;
+            background: #111; border: 2px solid red; border-radius: 2.5rem;
+            padding: 20px; box-shadow: 0 0 50px rgba(255,0,0,0.5);
+        }
+        .admin-input { width: 100%; background: #222; border: 1px solid #444; color: white; padding: 10px; border-radius: 10px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -40,7 +32,7 @@
 
     <div class="app-shell">
         <header class="navbar">
-            <div class="menu-trigger"><span></span><span></span><span></span></div>
+            <div class="menu-trigger" onclick="adminCheck()"><span></span><span></span><span></span></div>
             
             <div class="logo-wrapper">
                 <img src="assets/logo.png" alt="AlinGo" class="app-logo">
@@ -50,6 +42,22 @@
         </header>
 
         <div id="map-container" class="neon-box"></div>
+
+        <section id="admin-panel" class="hidden">
+            <div class="text-white relative">
+                <button onclick="document.getElementById('admin-panel').classList.add('hidden')" style="float:right; color:red;">CLOSE X</button>
+                <h2 class="text-red-500 font-black italic">ADMIN CONTROL</h2>
+                <div style="margin-top:20px;">
+                    <h4 class="text-sm">ویب سائٹ ٹائٹل اپڈیٹ</h4>
+                    <input type="text" id="updateTitleInput" placeholder="نیا ٹائٹل" class="admin-input">
+                    <button onclick="applySettings()" class="glow-button" style="background:blue; width:100%;">اپڈیٹ کریں</button>
+                    
+                    <h4 class="text-sm" style="margin-top:20px;">فائل مینجمنٹ (PNG/PDF)</h4>
+                    <input type="file" id="adminFile" class="admin-input">
+                    <p style="font-size: 10px; color: gray;">تمام اپلوڈز گٹ ہب پر جائیں گے۔</p>
+                </div>
+            </div>
+        </section>
 
         <div class="widgets-container">
             <div class="mini-card neon-box" onclick="location.href='src/screens/Weather.html'">
@@ -65,7 +73,7 @@
                 <div class="card-inner">
                     <span class="icon-glow">🏏</span>
                     <div class="text-data">
-                        <small>Food delivry</small>
+                        <small>Food delivery</small>
                         <strong class="live-blink">PAK vs AUS</strong>
                     </div>
                 </div>
@@ -74,7 +82,7 @@
 
         <div class="action-panel neon-box">
             <span class="side-label">SPORTS</span>
-            <button class="glow-button" onclick="location.href='src/screens/RideTracking.html'">START RIDE</button>
+            <button class="glow-button" onclick="location.href='/src/screens/SelectRide.html'">START RIDE</button>
             <div class="loc-tag">
                 <span class="pin">📍</span>
                 <small>LOCATION</small>
@@ -86,7 +94,7 @@
                 <div class="icon-circle">🏠</div>
                 <span>HOME</span>
             </div>
-            <div class="nav-btn" onclick="location.href='src/screens/RideTracking.html'">
+            <div class="nav-btn" onclick="location.href='/src/screens/SelectRide.html'">
                 <div class="icon-circle">🚗</div>
                 <span>RIDES</span>
             </div>
@@ -103,48 +111,27 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
+        // نقشہ کی سیٹنگ
         var map = L.map('map-container', {zoomControl: false}).setView([30.1575, 71.5249], 14);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 
-        var path = [[30.1500, 71.5200], [30.1575, 71.5300], [30.1650, 71.5400]];
-        L.polyline(path, {color: '#39FF14', weight: 4, opacity: 0.8, lineJoin: 'round'}).addTo(map);
-        L.circle([30.1650, 71.5400], {radius: 150, color: '#39FF14', fillColor: '#39FF14', fillOpacity: 0.5}).addTo(map);
+        // ایڈمن پینل کھولنے کے لیے خفیہ کلک فنکشن
+        let clickCount = 0;
+        function adminCheck() {
+            clickCount++;
+            if (clickCount >= 5) {
+                document.getElementById('admin-panel').classList.remove('hidden');
+                clickCount = 0;
+            }
+        }
+
+        function applySettings() {
+            const newTitle = document.getElementById('updateTitleInput').value;
+            if(newTitle) {
+                document.title = newTitle;
+                alert("ٹائٹل تبدیل کر دیا گیا ہے!");
+            }
+        }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-//ایڈمن پینل لال بٹن 
-<section id="admin-panel" class="hidden">
-            <div class="bg-gray-900 text-white p-8 rounded-[2.5rem] shadow-2xl overflow-hidden relative">
-                <div class="absolute top-0 right-0 p-10 opacity-10 text-9xl italic font-black">ADMIN</div>
-                <h2 class="text-3xl font-black mb-10 text-red-500 tracking-tighter italic">CONTROL CENTER</h2>
-                
-                <div class="grid md:grid-cols-2 gap-10 relative z-10">
-                    <div class="space-y-6">
-                        <h4 class="text-lg font-bold border-b border-white/10 pb-2">ویب سائٹ کنٹرول</h4>
-                        <input type="text" id="updateTitleInput" placeholder="نیا ٹائٹل" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-500">
-                        <button onclick="applySettings()" class="w-full bg-blue-600 p-4 rounded-2xl font-black shadow-lg">سیٹنگز اپڈیٹ کریں</button>
-                    </div>
-                    
-                    <div class="space-y-6">
-                        <h4 class="text-lg font-bold border-b border-white/10 pb-2">فائل مینجمنٹ (PNG/PDF)</h4>
-                        <div class="border-2 border-dashed border-white/20 p-8 rounded-3xl text-center">
-                            <input type="file" id="adminFile" class="hidden">
-                            <label for="adminFile" class="cursor-pointer bg-white/10 px-6 py-3 rounded-xl hover:bg-white/20 transition inline-block mb-4">فائل منتخب کریں</label>
-                            <p class="text-sm text-gray-400">تمام اپلوڈز گٹ ہب پر محفوظ ہوں گے۔</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
