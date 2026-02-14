@@ -7,19 +7,20 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="src/global.css">
     <style>
-        .logo-wrapper { display: flex; justify-content: center; align-items: center; flex-grow: 1; }
+        .logo-wrapper { display: flex; justify-content: center; align-items: center; flex-grow: 1; cursor: pointer; }
         .app-logo { height: 45px; width: auto; filter: drop-shadow(0 0 10px #39FF14); object-fit: contain; }
         .navbar { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 5px 0; }
         .nav-btn, .mini-card, .glow-button { cursor: pointer; }
         
-        /* ایڈمن پینل کے لیے اضافی اسٹائل */
+        /* ایڈمن پینل اسٹائل */
         .hidden { display: none; }
         #admin-panel {
-            position: fixed; top: 10%; left: 5%; right: 5%; z-index: 1000;
-            background: #111; border: 2px solid red; border-radius: 2.5rem;
-            padding: 20px; box-shadow: 0 0 50px rgba(255,0,0,0.5);
+            position: fixed; top: 15%; left: 5%; right: 5%; z-index: 9999;
+            background: #0a0a0a; border: 2px solid #ff0000; border-radius: 2rem;
+            padding: 25px; box-shadow: 0 0 40px rgba(255,0,0,0.6);
+            color: white; text-align: center;
         }
-        .admin-input { width: 100%; background: #222; border: 1px solid #444; color: white; padding: 10px; border-radius: 10px; margin-bottom: 10px; }
+        .admin-input { width: 90%; background: #1a1a1a; border: 1px solid #333; color: white; padding: 12px; border-radius: 12px; margin: 15px 0; }
     </style>
 </head>
 <body>
@@ -32,9 +33,9 @@
 
     <div class="app-shell">
         <header class="navbar">
-            <div class="menu-trigger" onclick="adminCheck()"><span></span><span></span><span></span></div>
+            <div class="menu-trigger"><span></span><span></span><span></span></div>
             
-            <div class="logo-wrapper">
+            <div class="logo-wrapper" onclick="adminCheck()">
                 <img src="assets/logo.png" alt="AlinGo" class="app-logo">
             </div>
             
@@ -44,19 +45,13 @@
         <div id="map-container" class="neon-box"></div>
 
         <section id="admin-panel" class="hidden">
-            <div class="text-white relative">
-                <button onclick="document.getElementById('admin-panel').classList.add('hidden')" style="float:right; color:red;">CLOSE X</button>
-                <h2 class="text-red-500 font-black italic">ADMIN CONTROL</h2>
-                <div style="margin-top:20px;">
-                    <h4 class="text-sm">ویب سائٹ ٹائٹل اپڈیٹ</h4>
-                    <input type="text" id="updateTitleInput" placeholder="نیا ٹائٹل" class="admin-input">
-                    <button onclick="applySettings()" class="glow-button" style="background:blue; width:100%;">اپڈیٹ کریں</button>
-                    
-                    <h4 class="text-sm" style="margin-top:20px;">فائل مینجمنٹ (PNG/PDF)</h4>
-                    <input type="file" id="adminFile" class="admin-input">
-                    <p style="font-size: 10px; color: gray;">تمام اپلوڈز گٹ ہب پر جائیں گے۔</p>
-                </div>
-            </div>
+            <h2 style="color: #ff0000; font-style: italic; font-weight: 900;">ADMIN CONTROL</h2>
+            <p style="font-size: 12px; color: #666;">ویب سائٹ کی بنیادی ترتیبات</p>
+            
+            <input type="text" id="updateTitleInput" placeholder="نیا ویب سائٹ ٹائٹل" class="admin-input">
+            
+            <button onclick="applySettings()" class="glow-button" style="background: #0044ff; width: 100%; margin-bottom: 10px;">سیٹنگز محفوظ کریں</button>
+            <button onclick="document.getElementById('admin-panel').classList.add('hidden')" style="background: none; border: none; color: #555; cursor: pointer;">بند کریں [X]</button>
         </section>
 
         <div class="widgets-container">
@@ -82,7 +77,7 @@
 
         <div class="action-panel neon-box">
             <span class="side-label">SPORTS</span>
-            <button class="glow-button" onclick="location.href='/src/screens/SelectRide.html'">START RIDE</button>
+            <button class="glow-button" onclick="location.href='src/screens/SelectRide.html'">START RIDE</button>
             <div class="loc-tag">
                 <span class="pin">📍</span>
                 <small>LOCATION</small>
@@ -90,11 +85,11 @@
         </div>
 
         <footer class="footer-nav">
-            <div class="nav-btn active" onclick="location.href='index.html'">
+            <div class="nav-btn active" onclick="location.href='/index.html'">
                 <div class="icon-circle">🏠</div>
                 <span>HOME</span>
             </div>
-            <div class="nav-btn" onclick="location.href='/src/screens/SelectRide.html'">
+            <div class="nav-btn" onclick="location.href='src/screens/SelectRide.html'">
                 <div class="icon-circle">🚗</div>
                 <span>RIDES</span>
             </div>
@@ -111,25 +106,26 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // نقشہ کی سیٹنگ
         var map = L.map('map-container', {zoomControl: false}).setView([30.1575, 71.5249], 14);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 
-        // ایڈمن پینل کھولنے کے لیے خفیہ کلک فنکشن
-        let clickCount = 0;
+        // ایڈمن لاجک: لوگو پر کلک گننا
+        let logoClicks = 0;
         function adminCheck() {
-            clickCount++;
-            if (clickCount >= 5) {
+            logoClicks++;
+            if (logoClicks === 5) {
                 document.getElementById('admin-panel').classList.remove('hidden');
-                clickCount = 0;
+                logoClicks = 0; // ری سیٹ
             }
+            // 3 سیکنڈ بعد کلکس ری سیٹ ہو جائیں گے اگر 5 پورے نہ ہوئے
+            setTimeout(() => { logoClicks = 0; }, 3000);
         }
 
         function applySettings() {
-            const newTitle = document.getElementById('updateTitleInput').value;
-            if(newTitle) {
-                document.title = newTitle;
-                alert("ٹائٹل تبدیل کر دیا گیا ہے!");
+            const title = document.getElementById('updateTitleInput').value;
+            if(title) {
+                document.title = title;
+                alert("ٹائٹل کامیابی سے اپ ڈیٹ ہو گیا!");
             }
         }
     </script>
