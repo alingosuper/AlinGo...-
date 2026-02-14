@@ -11,6 +11,36 @@
         .app-logo { height: 45px; width: auto; filter: drop-shadow(0 0 10px #39FF14); object-fit: contain; }
         .navbar { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 5px 0; }
         
+        /* شاپنگ کیٹیگریز (دراز اسٹائل) */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        .cat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+        .cat-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(57, 255, 20, 0.1);
+            border: 1px solid var(--neon);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+        }
+        .cat-item span { font-size: 0.65rem; color: #fff; font-weight: bold; }
+
         /* ایڈمن پینل ڈیزائن */
         .hidden { display: none; }
         #admin-panel {
@@ -35,59 +65,52 @@
     <div class="app-shell">
         <header class="navbar">
             <div class="menu-trigger"><span></span><span></span><span></span></div>
-            
             <div class="logo-wrapper" onclick="adminTrigger()">
                 <img src="assets/logo.png" alt="AlinGo" class="app-logo">
             </div>
-            
             <div class="profile-glow"></div>
         </header>
 
         <section id="admin-panel" class="hidden">
-            <h2 style="color:red; text-align:center; italic">SYSTEM MONITOR</h2>
-            
-            <div class="admin-stat-card">
-                <h4>ACTIVE RIDES</h4>
-                <p id="active-rides">12 Rides in Progress</p>
-            </div>
-            
-            <div class="admin-stat-card">
-                <h4>FOOD DELIVERIES</h4>
-                <p id="active-food">08 Orders Pending</p>
-            </div>
-            
-            <div class="admin-stat-card">
-                <h4>SYSTEM WALLET</h4>
-                <p id="total-wallet">Rs. 45,280.00</p>
-            </div>
-
-            <div class="admin-stat-card">
-                <h4>USER TRAFFIC</h4>
-                <p>142 Online Users</p>
-            </div>
-
+            <h2 style="color:red; text-align:center; font-style: italic;">SYSTEM MONITOR</h2>
+            <div class="admin-stat-card"><h4>ACTIVE RIDES</h4><p>12 Rides in Progress</p></div>
+            <div class="admin-stat-card"><h4>FOOD ORDERS</h4><p>08 Pending</p></div>
+            <div class="admin-stat-card"><h4>WALLET TOTAL</h4><p>Rs. 45,280</p></div>
+            <div class="admin-stat-card"><h4>SHOPPING SALES</h4><p>Rs. 12,400 Today</p></div>
             <button class="close-admin" onclick="toggleAdmin()">CLOSE MONITOR</button>
         </section>
 
         <div id="map-container" class="neon-box"></div>
 
-        <div class="widgets-container">
-            <div class="mini-card neon-box" onclick="location.href='src/screens/Weather.html'">
-                <div class="card-inner">
-                    <span class="icon-glow">☀️</span>
-                    <div class="text-data"><small>WEATHER</small><strong>28°C</strong></div>
-                </div>
+        <div class="categories-grid">
+            <div class="cat-item" onclick="location.href='/src/screens/SelectRide.html'">
+                <div class="cat-icon">🚗</div><span>RIDES</span>
             </div>
-            <div class="mini-card neon-box" onclick="location.href='src/screens/SportsLive.html'">
-                <div class="card-inner">
-                    <span class="icon-glow">🍱</span>
-                    <div class="text-data"><small>Food Delivery</small><strong class="live-blink">ACTIVE</strong></div>
-                </div>
+            <div class="cat-item" onclick="alert('Food Section Coming Soon')">
+                <div class="cat-icon">🍱</div><span>FOOD</span>
+            </div>
+            <div class="cat-item" onclick="alert('Wallet Opening...')">
+                <div class="cat-icon">💳</div><span>WALLET</span>
+            </div>
+            <div class="cat-item" onclick="alert('Shopping Mart')">
+                <div class="cat-icon">🛍️</div><span>MART</span>
+            </div>
+            <div class="cat-item">
+                <div class="cat-icon">📱</div><span>MOBILE</span>
+            </div>
+            <div class="cat-item">
+                <div class="cat-icon">🔌</div><span>ELECTRO</span>
+            </div>
+            <div class="cat-item">
+                <div class="cat-icon">👕</div><span>FASHION</span>
+            </div>
+            <div class="cat-item">
+                <div class="cat-icon">💎</div><span>OFFERS</span>
             </div>
         </div>
 
         <div class="action-panel neon-box">
-            <span class="side-label">RIDES</span>
+            <span class="side-label">QUICK</span>
             <button class="glow-button" onclick="goToSelectRide()">START RIDE</button>
             <div class="loc-tag">
                 <span class="pin">📍</span>
@@ -102,8 +125,8 @@
             <div class="nav-btn" onclick="goToSelectRide()">
                 <div class="icon-circle">🚗</div><span>RIDES</span>
             </div>
-            <div class="nav-btn" onclick="location.href='src/screens/SportsLive.html'">
-                <div class="icon-circle">🏆</div><span>SPORTS</span>
+            <div class="nav-btn" onclick="alert('Orders Page')">
+                <div class="icon-circle">📦</div><span>ORDERS</span>
             </div>
             <div class="nav-btn" onclick="location.href='src/screens/Profile.html'">
                 <div class="icon-circle">👤</div><span>PROFILE</span>
@@ -116,14 +139,11 @@
         var map = L.map('map-container', {zoomControl: false}).setView([30.1575, 71.5249], 14);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 
-        // 404 ایرر فکس کرنے والا فنکشن
         function goToSelectRide() {
-            // اگر Vite استعمال کر رہے ہیں تو پہلا رستہ، ورنہ دوسرا
             const path = window.location.hostname === "localhost" ? "/src/screens/SelectRide.html" : "src/screens/SelectRide.html";
             window.location.href = path;
         }
 
-        // ایڈمن پینل لاجک
         let logoClicks = 0;
         function adminTrigger() {
             logoClicks++;
@@ -131,12 +151,11 @@
                 toggleAdmin();
                 logoClicks = 0;
             }
-            setTimeout(() => { logoClicks = 0; }, 3000); // 3 سیکنڈ میں کلک نہ کرنے پر ری سیٹ
+            setTimeout(() => { logoClicks = 0; }, 3000);
         }
 
         function toggleAdmin() {
-            const panel = document.getElementById('admin-panel');
-            panel.classList.toggle('hidden');
+            document.getElementById('admin-panel').classList.toggle('hidden');
         }
     </script>
 </body>
