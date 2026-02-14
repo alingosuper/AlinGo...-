@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlinGo - Select Ride</title>
+    <link rel="stylesheet" href="../global.css">
+    <style>
+        .ride-options { padding: 20px; display: grid; gap: 15px; }
+        .ride-card {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 15px; background: rgba(0,0,0,0.7); border-radius: 15px;
+            border: 1px solid #333; transition: 0.3s; cursor: pointer;
+        }
+        .ride-card:hover { border-color: #39FF14; box-shadow: 0 0 15px #39FF14; transform: scale(1.02); }
+        .ride-info { display: flex; align-items: center; gap: 15px; }
+        .ride-icon { font-size: 2rem; filter: drop-shadow(0 0 5px #39FF14); }
+        .price { color: #39FF14; font-weight: bold; }
+        .vvip-tag { background: #39FF14; color: black; font-size: 0.6rem; padding: 2px 5px; border-radius: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="app-shell">
+        <header class="navbar">
+            <button class="glow-button" onclick="location.href='/index.html'">← BACK</button>
+            <h2 style="color:#39FF14">SELECT RIDE</h2>
+        </header>
+
+        <div class="ride-options">
+            <div class="ride-card" onclick="location.href='/src/screens/RideTracking.html'">
+                <div class="ride-info">
+                    <span class="ride-icon">🏍️</span>
+                    <div><strong>Motorcycle</strong><br><small>Quickest in traffic</small></div>
+                </div>
+                <span class="price">Rs. 80</span>
+            </div>
+
+            <div class="ride-card" onclick="location.href='/src/screens/RideTracking.html'">
+                <div class="ride-info">
+                    <span class="ride-icon">🛺</span>
+                    <div><strong>Rickshaw</strong><br><small>Economical for 3</small></div>
+                </div>
+                <span class="price">Rs. 150</span>
+            </div>
+
+            <div class="ride-card" onclick="location.href='/src/screens/RideTracking.html'">
+                <div class="ride-info">
+                    <span class="ride-icon">🚗</span>
+                    <div><strong>Car (Mini)</strong><br><small>AC Ride for 4</small></div>
+                </div>
+                <span class="price">Rs. 300</span>
+            </div>
+
+            <div class="ride-card" style="border-color: gold; box-shadow: 0 0 10px gold;" onclick="location.href='/src/screens/RideTracking.html'">
+                <div class="ride-info">
+                    <span class="ride-icon" style="filter: drop-shadow(0 0 5px gold);">👑</span>
+                    <div><strong>VVIP Ride</strong> <span class="vvip-tag">GOLD</span><br><small>Premium Luxury Sedan</small></div>
+                </div>
+                <span class="price" style="color: gold;">Rs. 850</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
